@@ -208,3 +208,14 @@ stats_2019_2020.to_csv('../../0_datasets/processed/stats/stats_2019_2020.csv', i
 stats_2020_2021.to_csv('../../0_datasets/processed/stats/stats_2020_2021.csv', index=False)
 stats_2021_2022.to_csv('../../0_datasets/processed/stats/stats_2021_2022.csv', index=False)
 stats_2022_2023.to_csv('../../0_datasets/processed/stats/stats_2022_2023.csv', index=False)
+
+stats_2019_2020['season'] = '2019-2020'
+stats_2020_2021['season'] = '2020-2021'
+stats_2021_2022['season'] = '2021-2022'
+stats_2022_2023['season'] = '2022-2023'
+
+# Concatenate all four DataFrames
+stats = pd.concat([stats_2019_2020, stats_2020_2021, stats_2021_2022, stats_2022_2023])
+
+#save to csv
+stats.to_csv('../../0_datasets/processed/stats.csv', index=False)

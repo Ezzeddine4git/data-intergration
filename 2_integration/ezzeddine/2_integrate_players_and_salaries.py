@@ -91,3 +91,14 @@ salaries_2019_2020.to_csv('../../0_datasets/processed/salaries/salaries_2019_202
 salaries_2020_2021.to_csv('../../0_datasets/processed/salaries/salaries_2020_2021.csv', index=False)
 salaries_2021_2022.to_csv('../../0_datasets/processed/salaries/salaries_2021_2022.csv', index=False)
 salaries_2022_2023.to_csv('../../0_datasets/processed/salaries/salaries_2022_2023.csv', index=False)
+
+salaries_2019_2020['season'] = '2019-2020'
+salaries_2020_2021['season'] = '2020-2021'
+salaries_2021_2022['season'] = '2021-2022'
+salaries_2022_2023['season'] = '2022-2023'
+
+# Concatenate salaries
+salaries = pd.concat([salaries_2019_2020, salaries_2020_2021, salaries_2021_2022, salaries_2022_2023])
+
+# Save concatenated salaries
+salaries.to_csv('../../0_datasets/processed/salaries.csv', index=False)
