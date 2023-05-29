@@ -1,7 +1,5 @@
 import pandas as pd
 import uuid
-from itertools import zip_longest
-from collections import Counter
 import os
 
 def rename_columns(df, column_mapping):
