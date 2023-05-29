@@ -216,6 +216,7 @@ stats_2022_2023['season'] = '2022-2023'
 
 # Concatenate all four DataFrames
 stats = pd.concat([stats_2019_2020, stats_2020_2021, stats_2021_2022, stats_2022_2023])
+stats.insert(0, 'uuid', [uuid.uuid4() for _ in range(len(stats))])
 
 #save to csv
 stats.to_csv('../../0_datasets/processed/stats.csv', index=False)
