@@ -87,7 +87,7 @@ for index, champion_row in champtions.iterrows():
 champtions['champion_uuid'] = team_ids
 
 # Save the updated DataFrame to a new CSV file
-# champions_df.to_csv('champions_with_team_ids.csv', index=False)
+champions_df.to_csv('champions_with_team_ids.csv', index=False)
 champtions = champtions.drop('champion', axis=1)
 
 directory = "../../0_datasets/processed"
