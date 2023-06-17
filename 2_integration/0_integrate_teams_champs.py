@@ -30,8 +30,8 @@ def levenshtein_distance(str1, str2):
 
 
 # Read the data
-teams = pd.read_csv('../../0_datasets/teams.csv')
-titles = pd.read_csv('../../0_datasets/teams_won_titles.csv')
+teams = pd.read_csv('../0_datasets/teams.csv')
+titles = pd.read_csv('../0_datasets/teams_won_titles.csv')
 
 # Assign a unique identifier to each team
 teams.insert(0, 'uuid', [uuid.uuid4() for _ in range(len(teams))])
@@ -90,10 +90,10 @@ champtions['champion_uuid'] = team_ids
 # champions_df.to_csv('champions_with_team_ids.csv', index=False)
 champtions = champtions.drop('champion', axis=1)
 
-directory = "../../0_datasets/processed"
+directory = "../0_datasets/processed"
 # Create the directory if it doesn't exist
 os.makedirs(directory, exist_ok=True)
 
 # Save the updated DataFrame to a new CSV file
-champtions.to_csv('../../0_datasets/processed/champions_with_team_ids.csv', index=False)
-teams.to_csv('../../0_datasets/processed/teams_with_uuid.csv', index=False)
+champtions.to_csv('../0_datasets/processed/champions_with_team_ids.csv', index=False)
+teams.to_csv('../0_datasets/processed/teams_with_uuid.csv', index=False)

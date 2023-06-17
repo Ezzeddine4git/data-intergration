@@ -112,11 +112,11 @@ def add_team_uuid(df, uuid_df, threshold=0):
     return df
 
 # Load Data
-stats_2019_2020 = pd.read_excel('../../0_datasets/stats/2019-2020 NBA Player Stats.xlsx', skiprows=1) 
-stats_2020_2021 = pd.read_excel('../../0_datasets/stats/2020-2021 NBA Stats  Player Box Score  Advanced Metrics.xlsx', skiprows=1)
-stats_2021_2022 = pd.read_excel('../../0_datasets/stats/NBA Stats 202122 All Player Statistics in one Page.xlsx', skiprows=1) 
-stats_2022_2023 = pd.read_csv('../../0_datasets/stats/NBA Stats 202223 All Stats  NBA Player Props Tool (1).csv')
-teams = pd.read_csv('../../0_datasets/processed/teams_with_uuid.csv')
+stats_2019_2020 = pd.read_excel('../0_datasets/stats/2019-2020 NBA Player Stats.xlsx', skiprows=1) 
+stats_2020_2021 = pd.read_excel('../0_datasets/stats/2020-2021 NBA Stats  Player Box Score  Advanced Metrics.xlsx', skiprows=1)
+stats_2021_2022 = pd.read_excel('../0_datasets/stats/NBA Stats 202122 All Player Statistics in one Page.xlsx', skiprows=1) 
+stats_2022_2023 = pd.read_csv('../0_datasets/stats/NBA Stats 202223 All Stats  NBA Player Props Tool (1).csv')
+teams = pd.read_csv('../0_datasets/processed/teams_with_uuid.csv')
 
 column_mapping = {
     "RANK": "RANK",
@@ -181,10 +181,10 @@ merged_df['uuid'] = [str(uuid.uuid4()) for _ in range(len(merged_df))]
 # Drop duplicate rows based on the player name column
 unique_players_df = merged_df.drop_duplicates(subset='NAME')
 unique_players_df.reset_index()
-directory = "../../0_datasets/processed"
+directory = "../0_datasets/processed"
 # Create the directory if it doesn't exist
 os.makedirs(directory, exist_ok=True)
-unique_players_df.to_csv('../../0_datasets/processed/unique_players.csv', index=False, columns=['uuid', 'NAME'])
+unique_players_df.to_csv('../0_datasets/processed/unique_players.csv', index=False, columns=['uuid', 'NAME'])
 
 # Integrate players to stats
 stats_2019_2020 = add_player_uuid(stats_2019_2020, unique_players_df)
@@ -199,13 +199,20 @@ stats_2020_2021 = add_team_uuid(stats_2020_2021, teams)
 stats_2021_2022 = add_team_uuid(stats_2021_2022, teams)
 stats_2022_2023 = add_team_uuid(stats_2022_2023, teams)
 
-directory = "../../0_datasets/processed/stats"
+directory = "../0_datasets/processed/stats"
 # Create the directory if it doesn't exist
 os.makedirs(directory, exist_ok=True)
-stats_2019_2020.to_csv('../../0_datasets/processed/stats/stats_2019_2020.csv', index=False)
-stats_2020_2021.to_csv('../../0_datasets/processed/stats/stats_2020_2021.csv', index=False)
-stats_2021_2022.to_csv('../../0_datasets/processed/stats/stats_2021_2022.csv', index=False)
-stats_2022_2023.to_csv('../../0_datasets/processed/stats/stats_2022_2023.csv', index=False)
+
+#Assign UUIDs to each row
+stats_2019_2020.insert(0, 'uuid', [uuid.uuid4() for _ in range(len(stats_2019_2020))])
+stats_2020_2021.insert(0, 'uuid', [uuid.uuid4() for _ in range(len(stats_2020_2021))])
+stats_2021_2022.insert(0, 'uuid', [uuid.uuid4() for _ in range(len(stats_2021_2022))])
+stats_2022_2023.insert(0, 'uuid', [uuid.uuid4() for _ in range(len(stats_2022_2023))])
+
+stats_2019_2020.to_csv('../0_datasets/processed/stats/stats_2019_2020.csv', index=False)
+stats_2020_2021.to_csv('../0_datasets/processed/stats/stats_2020_2021.csv', index=False)
+stats_2021_2022.to_csv('../0_datasets/processed/stats/stats_2021_2022.csv', index=False)
+stats_2022_2023.to_csv('../0_datasets/processed/stats/stats_2022_2023.csv', index=False)
 
 stats_2019_2020['season'] = '2019-2020'
 stats_2020_2021['season'] = '2020-2021'
@@ -214,7 +221,6 @@ stats_2022_2023['season'] = '2022-2023'
 
 # Concatenate all four DataFrames
 stats = pd.concat([stats_2019_2020, stats_2020_2021, stats_2021_2022, stats_2022_2023])
-stats.insert(0, 'uuid', [uuid.uuid4() for _ in range(len(stats))])
 
 #save to csv
-stats.to_csv('../../0_datasets/processed/stats.csv', index=False)
+stats.to_csv('../0_datasets/processed/stats.csv', index=False)

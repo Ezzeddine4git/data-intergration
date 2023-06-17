@@ -2,11 +2,11 @@ import os
 import pandas as pd
 import uuid
 
-salaries_2019_2020 = pd.read_csv('../../0_datasets/salaries/players_slaries_2019-2020.csv') 
-salaries_2020_2021 = pd.read_csv('../../0_datasets/salaries/players_slaries_2020-2021.csv')
-salaries_2021_2022 = pd.read_csv('../../0_datasets/salaries/players_slaries_2021-2022.csv') 
-salaries_2022_2023 = pd.read_csv('../../0_datasets/salaries/players_slaries_2022-2023.csv')
-players = pd.read_csv('../../0_datasets/processed/unique_players.csv')
+salaries_2019_2020 = pd.read_csv('../0_datasets/salaries/players_slaries_2019-2020.csv') 
+salaries_2020_2021 = pd.read_csv('../0_datasets/salaries/players_slaries_2020-2021.csv')
+salaries_2021_2022 = pd.read_csv('../0_datasets/salaries/players_slaries_2021-2022.csv') 
+salaries_2022_2023 = pd.read_csv('../0_datasets/salaries/players_slaries_2022-2023.csv')
+players = pd.read_csv('../0_datasets/processed/unique_players.csv')
 
 
 def process_dataframe(df):
@@ -82,15 +82,15 @@ salaries_2021_2022 = integrate_players_salaries(salaries_2021_2022, players)
 salaries_2022_2023 = integrate_players_salaries(salaries_2022_2023, players)
 
 #Create directory if it doesn't exist
-if not os.path.exists('../../0_datasets/processed/salaries'):
-    os.makedirs('../../0_datasets/processed/salaries')
+if not os.path.exists('../0_datasets/processed/salaries'):
+    os.makedirs('../0_datasets/processed/salaries')
 
 
 # Save integrated salaries
-salaries_2019_2020.to_csv('../../0_datasets/processed/salaries/salaries_2019_2020.csv', index=False)
-salaries_2020_2021.to_csv('../../0_datasets/processed/salaries/salaries_2020_2021.csv', index=False)
-salaries_2021_2022.to_csv('../../0_datasets/processed/salaries/salaries_2021_2022.csv', index=False)
-salaries_2022_2023.to_csv('../../0_datasets/processed/salaries/salaries_2022_2023.csv', index=False)
+salaries_2019_2020.to_csv('../0_datasets/processed/salaries/salaries_2019_2020.csv', index=False)
+salaries_2020_2021.to_csv('../0_datasets/processed/salaries/salaries_2020_2021.csv', index=False)
+salaries_2021_2022.to_csv('../0_datasets/processed/salaries/salaries_2021_2022.csv', index=False)
+salaries_2022_2023.to_csv('../0_datasets/processed/salaries/salaries_2022_2023.csv', index=False)
 
 salaries_2019_2020['season'] = '2019-2020'
 salaries_2020_2021['season'] = '2020-2021'
@@ -101,4 +101,4 @@ salaries_2022_2023['season'] = '2022-2023'
 salaries = pd.concat([salaries_2019_2020, salaries_2020_2021, salaries_2021_2022, salaries_2022_2023])
 
 # Save concatenated salaries
-salaries.to_csv('../../0_datasets/processed/salaries.csv', index=False)
+salaries.to_csv('../0_datasets/processed/salaries.csv', index=False)
